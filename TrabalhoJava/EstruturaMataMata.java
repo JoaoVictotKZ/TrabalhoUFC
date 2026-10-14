@@ -53,8 +53,15 @@ public class EstruturaMataMata {
             lutadoresAtivos = vencedoresDaFase; // Atualiza a lista para a próxima fase
             numeroDaFase++; // Avança a fase incrementando o número da fase apartir do inicio (1).
         }
+
+        // Quando o laço termina, significa que só resta um lutador ativo, que é o campeão do torneio.
+        System.out.println("\n===================================");
+        System.out.println("👑 CAMPEÃO DO TORNEIO 👑");
+        System.out.println(lutadoresAtivos.get(0).toString());
+        System.out.println("===================================");
+
+        }
     }
-}
 
 
     
