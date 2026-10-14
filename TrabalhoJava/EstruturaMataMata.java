@@ -32,6 +32,29 @@ public class EstruturaMataMata {
             
             // Já nesta parte do código, criamos uma lista para armazenar os vencedores da fase atual, que serão os lutadores que avançam para a próxima fase.
             List<Lutador> vencedoresDaFase = new ArrayList<>();
+
+            // Inserimos aqui um outro laço de repetição que vai percorrer a lista de lutadores ativos em pares (De dois em dois), ou seja, dois lutadores por vez, para realizar a pancadaria.
+            for (int i = 0; i < lutadoresAtivos.size(); i += 2) {
+                Lutador lutador1 = lutadoresAtivos.get(i);
+                Lutador lutador2 = lutadoresAtivos.get(i + 1);
+
+                Luta luta = new Luta(lutador1, lutador2);
+                System.out.println("Combate: " + lutador1.getNome() + " VS " + lutador2.getNome());
+                
+                luta.realizar(); 
+                Lutador vencedor = luta.getVencedor();
+                
+                System.out.println("-> Vencedor: " + vencedor.getNome());
+                
+                // Aqui Salva o vencedor da Luta na Lista de Vencedores da fase, será usado para a proxima fase da competição.
+                vencedoresDaFase.add(vencedor);
+            }
+
+            lutadoresAtivos = vencedoresDaFase; // Atualiza a lista para a próxima fase
+            numeroDaFase++; // Avança a fase incrementando o número da fase apartir do inicio (1).
         }
-    }    
+    }
 }
+
+
+    
