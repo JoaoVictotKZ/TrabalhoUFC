@@ -63,19 +63,19 @@ public class TestesMainUFC { // Teste da classe Lutador
 
         // Teste de impressão dos lutadores cadastrados, para verificar se os dados foram lidos corretamente e vou iniciar os torneios apartir disso.
         System.out.println("\n\n===================================");
-        System.out.println("   🏆 INICIANDO TORNEIO LEVE 🏆    ");
+        System.out.println("    INICIANDO TORNEIO LEVE     ");
         System.out.println("===================================");
         EstruturaMataMata torneioLeves = new EstruturaMataMata(leves);
         torneioLeves.iniciarTorneio();
 
         System.out.println("\n\n===================================");
-        System.out.println("   🏆 INICIANDO TORNEIO MÉDIO 🏆   ");
+        System.out.println("    INICIANDO TORNEIO MÉDIO    ");
         System.out.println("===================================");
         EstruturaMataMata torneioMedios = new EstruturaMataMata(medios);
         torneioMedios.iniciarTorneio();
 
         System.out.println("\n\n===================================");
-        System.out.println("  🏆 INICIANDO TORNEIO PESADO 🏆   ");
+        System.out.println("   INICIANDO TORNEIO PESADO    ");
         System.out.println("===================================");
         EstruturaMataMata torneioPesados = new EstruturaMataMata(pesados);
         torneioPesados.iniciarTorneio();
