@@ -7,7 +7,7 @@ import java.util.Scanner;
 // inseri aqui para testar o funcionamento de Scanner para ler as entradas do usuário, além de importar dados de Locale para definir padrões de formatação dos dados que ele inserir via teclado sobre os lutadores, como idade e peso, que são do tipo numérico, para não dar erro de formatação, pois o padrão do Java é diferente do padrão brasileiro, que utiliza vírgula para separar os decimais.
 // Aqui também importei a classe ArrayList e List para criar uma lista de lutadores, que será usada para armazenar os participantes do torneio e funcionar como uma chave de torneio, que vai ser gerenciada pela classe EstruturaMataMata, que vai organizar as lutas e determinar os vencedores de cada fase do torneio.
 
-public class UFC { // Teste da classe Lutador
+public class UFC {
     public static void main(String[] args) {
 
     // Configurei o Locale.US para que o Scanner aceite ponto (ex: 78.5) em vez de vírgula no peso
