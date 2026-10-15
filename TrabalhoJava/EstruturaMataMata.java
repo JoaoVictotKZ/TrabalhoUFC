@@ -8,14 +8,41 @@ public class EstruturaMataMata {
     private List<Lutador> lutadoresAtivos;
 
     //Aqui é o construtor da classe onde vai verificar se a quantidade de lutadores é par para não quebrar a chave
-    public EstruturaMataMata(List<Lutador> lutadores) {
-   if (lutadores.size() % 2 != 0) {
-            throw new IllegalArgumentException("O número de lutadores deve ser par para um torneio mata-mata.");
-        }
+    //public EstruturaMataMata(List<Lutador> lutadores) {
+   //if (lutadores.size() % 2 != 0) {
+   //         throw new IllegalArgumentException("O número de lutadores deve ser par para um torneio mata-mata.");
+   //     }
         
-        //Aqui criamos uma cópia da lista de lutadores para garantir que a lista não vá alterar a lista original no main.
+   //     //Aqui criamos uma cópia da lista de lutadores para garantir que a lista não vá alterar a lista original no main.
+   //     this.lutadoresAtivos = new ArrayList<>(lutadores);
+   //
+   // }
+
+    public EstruturaMataMata(List<Lutador> lutadores) {
+        int quantidade = lutadores.size();
+
+        if (quantidade < 2){
+            throw new IllegalArgumentException("O torneio precisa de pelo menos 2 lutadores.");
+        }
+
+        int restantes = quantidade;
+        while (restantes > 1) {
+            if (restantes % 2 != 0) {
+                throw new IllegalArgumentException("A quantidade deve ser 2, 4, 8, 16, etc. para fechar o mata-mata.");
+        
+            }
+            restantes = restantes / 2;
+        }
+
+        String categoria = lutadores.get(0).getCategoria();
+        for (Lutador lutador : lutadores) {
+            if (!lutador.getCategoria().equals(categoria)) {
+                throw new IllegalArgumentException("Todos os lutadores devem ser da mesma categoria.");
+            }
+        }
+
         this.lutadoresAtivos = new ArrayList<>(lutadores);
-   
+
     }
   
     // Método para iniciar o gerenciamento do torneio no Formato.
@@ -61,7 +88,7 @@ public class EstruturaMataMata {
 
         // Quando o laço termina, significa que só resta um lutador ativo, que é o campeão do torneio.
         System.out.println("\n===================================");
-        System.out.println("👑 CAMPEÃO DO TORNEIO 👑");
+        System.out.println(" CAMPEÃO DO TORNEIO ");
         // Transformamos o lutador campeão em uma string para exibir suas informações direcionando um metodo do .get .
         System.out.println(lutadoresAtivos.get(0).toString());
         System.out.println("===================================");
