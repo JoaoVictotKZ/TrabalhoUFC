@@ -62,6 +62,7 @@ public class Luta {
             texto += " | Vencedor: " + vencedor.getNome();
             }
         return texto; // Retorna a representação em string da luta
+        
     }
 
 }
