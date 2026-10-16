@@ -1,0 +1,11 @@
+Possiveis erros/correções após primeiro teste:
+
+1- Temos que adicionar uma alternativa do usuario escolher que torneio quer preencher e quantos torneios quer gerar de cada categoria após inserir a quantidade.
+
+2- Colocar uma restrição para nome ser somente caracteres de texto e não deixar inserir numeros.
+
+3- Colocar restrição máxima para idade ter um limite e ser somente caracteres númericos.
+
+4- Ser possivel corrigir idade caso seja inserida com virgula e caracteres especiais ou inserida incorretamente.
+
+5 - Ser possivel corrigir nomes caso seja inserida com virgula e caracteres especiais ou inserida incorretamente.
