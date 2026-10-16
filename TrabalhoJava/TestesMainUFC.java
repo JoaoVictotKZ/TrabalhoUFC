@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class TestesMainUFC { // Teste da classe Lutador
+public class TestesMainUFC { 
+    
+    // Teste da classe Lutador
     public static void main(String[] args) {
         //Instanciando um objeto da classe Lutador com nome, idade e peso manualmente, para testar o método toString() da classe Lutador.
         // Lutador l1 = new Lutador("Kazuki", 28, 78.5);
