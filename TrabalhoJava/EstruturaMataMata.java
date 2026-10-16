@@ -26,6 +26,10 @@ public class EstruturaMataMata {
         this.lutadoresAtivos = new ArrayList<>(lutadores);
     }
 
+    public EstruturaMataMata(String string, List<Lutador> lutadores) {
+        //TODO Auto-generated constructor stub
+    }
+
     public static boolean ehPotenciaDeDois(int numero) {
         if (numero < 2) {
             return false;
