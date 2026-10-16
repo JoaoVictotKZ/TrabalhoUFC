@@ -97,7 +97,20 @@ public class TestesMainUFC { // Teste da classe Lutador
             System.out.print("Digite o peso do Lutador " + i + ": ");
             double peso = scanner.nextDouble();
             scanner.nextLine(); // Esta parte é para consumir a quebra de linha deixada pelo nextInt() e nextDouble() e evitar problemas na leitura de proximas entradas de texto, ou famoso "limpar o buffer" do Scanner.
-            lutadores.add(new Lutador(nome, idade, peso));
+
+            // Criando um objeto temporário da classe Lutador para validar a categoria antes de adicionar na lista de lutadores, e em seguida evitando que o usuário digite um peso que não corresponde a categoria, e se o peso estiver correto, adicionamos o lutador na lista de lutadores.
+            Lutador lutadorTemporario = new Lutador(nome, idade, peso);
+
+            // Inserindo aqui a validação da categoria, ou seja se compete perfeitamente com o peso, evitando que o usuário digite um peso que não corresponde a categoria.
+            if (!lutadorTemporario.getCategoria().equals(categoria)) {
+                System.out.println("Erro: O peso do lutador não corresponde à categoria " + categoria + ". Reinicie o programa.");
+                System.out.println("Por favor, digite os dados novamente com um peso válido para a categoria " + categoria + ".");
+                i--; // retorna a rodada no laço for para o usuário digitar esse lutador de novo.
+                continue; 
+            }
+            // Se passar pelo if acima, significa que o lutador foi cadastrado corretamente, então podemos informar ao usuário que o cadastro foi realizado com sucesso.
+            lutadores.add(lutadorTemporario);
+            System.out.println("Lutador " + nome + " cadastrado com sucesso na categoria! ");
         }
         return lutadores;
     }
