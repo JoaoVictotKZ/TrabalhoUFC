@@ -4,24 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EstruturaMataMata {
+
+    private String nome;
     // Esse vai ser um atributo que guarda os lutadores que ainda não foram eliminados
     private List<Lutador> lutadoresAtivos;
 
     // Construtor da classe EstruturaMataMata, que recebe uma lista de lutadores como parâmetro
     public EstruturaMataMata(List<Lutador> lutadores) {
-        int quantidade = lutadores.size();
-
-        if (quantidade < 2){
-            throw new IllegalArgumentException("O torneio precisa de pelo menos 2 lutadores.");
-        }
-
-        int restantes = quantidade;
-        while (restantes > 1) {
-            if (restantes % 2 != 0) {
-                throw new IllegalArgumentException("A quantidade deve ser 2, 4, 8, 16, etc. para fechar o mata-mata.");
-        
-            }
-            restantes = restantes / 2;
+        if (!ehPotenciaDeDois(lutadores.size())) {
+            throw new IllegalArgumentException("A quantidade de lutadores deve ser 2, 4, 8, 16, etc. para fechar o mata-mata.");
         }
 
         String categoria = lutadores.get(0).getCategoria();
@@ -30,9 +21,22 @@ public class EstruturaMataMata {
                 throw new IllegalArgumentException("Todos os lutadores devem ser da mesma categoria.");
             }
         }
-
+        
+        this.nome = nome;
         this.lutadoresAtivos = new ArrayList<>(lutadores);
+    }
 
+    public static boolean ehPotenciaDeDois(int numero) {
+        if (numero < 2) {
+            return false;
+        }
+        while (numero > 1) {
+            if (numero % 2 != 0) {
+                return false;
+            }
+            numero /= 2;
+        }
+        return true;
     }
   
     // Método para iniciar o gerenciamento do torneio no Formato.
