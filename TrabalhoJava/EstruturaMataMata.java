@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EstruturaMataMata {
-
-    private String nome;
+    private String nome; // Atributo para armazenar o nome do torneio
+    
+    
     // Esse vai ser um atributo que guarda os lutadores que ainda não foram eliminados
     private List<Lutador> lutadoresAtivos;
 
     // Construtor da classe EstruturaMataMata, que recebe uma lista de lutadores como parâmetro
-    public EstruturaMataMata(List<Lutador> lutadores) {
+    public EstruturaMataMata(List<Lutador> lutadores, String nome) {
         if (!ehPotenciaDeDois(lutadores.size())) {
             throw new IllegalArgumentException("A quantidade de lutadores deve ser 2, 4, 8, 16, etc. para fechar o mata-mata.");
         }
@@ -26,8 +27,16 @@ public class EstruturaMataMata {
         this.lutadoresAtivos = new ArrayList<>(lutadores);
     }
 
+    // ==========================================
+    // Adicionei um metodo getNome() para retornar o nome do torneio dando utilidade ao primeiro atributo da classe, que pode ser útil para exibir informações sobre o torneio em outras partes do programa.
+    // ==========================================
+    public String getNome() {
+        return this.nome;
+    }
+
     public EstruturaMataMata(String string, List<Lutador> lutadores) {
-        //TODO Auto-generated constructor stub
+        this(lutadores, string);
+        //Nesta parte do código, o construtor da classe EstruturaMataMata recebe uma lista de lutadores e um nome para o torneio. E em seguida no outro método, ele verifica se a quantidade de lutadores é uma potência de dois e se todos os lutadores pertencem à mesma categoria. Se essas condições não forem atendidas, ele lança uma exceção IllegalArgumentException com uma mensagem apropriada. Caso contrário, ele inicializa os atributos nome e lutadoresAtivos com os valores fornecidos.
     }
 
     public static boolean ehPotenciaDeDois(int numero) {
