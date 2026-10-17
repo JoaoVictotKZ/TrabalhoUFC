@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class TestesMainUFC {
     
-    // Teste da classe Lutador
+    // Teste da main final com Scanner
     public static void main(String[] args) {
        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
 
