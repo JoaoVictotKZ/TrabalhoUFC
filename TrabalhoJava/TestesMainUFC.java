@@ -10,85 +10,83 @@ public class TestesMainUFC {
     // Teste da main final com Scanner
     public static void main(String[] args) {
        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+       List<EstruturaMataMata> torneios = new ArrayList<>();
 
        System.out.println("===========================================");
        System.out.println(" BEM-VINDO AO GERENCIADOR DE TORNEIOS UFC  ");
        System.out.println("===========================================");
 
-       String[] categorias = {"Leve", "Médio", "Pesado"};
-       List<EstruturaMataMata> torneios = new ArrayList<>();
+       boolean noMenu = true; // Decidimos por colocar laço principal pra iniciar o menu e por isso essa linha serve pra controlar ele.
 
-       for (String categoria : categorias) {
-            System.out.print("\nQuantos torneios da categoria " + categoria.toUpperCase()
-                 + "deseja gerar? (Digite 0 para nenhum?): ");
-            int qtdTorneios = scanner.nextInt();
-            scanner.nextLine();
+       // AQUI O WHILE VAI FAZER PARTE DO MENU PRINCIPAL
+        while (noMenu) {
+            System.out.println("\n--- MENU DE CADASTRO ---");
+            System.out.println("1 - Adicionar Torneio(s) categoria LEVE");
+            System.out.println("2 - Adicionar Torneio(s) categoria MÉDIO");
+            System.out.println("3 - Adicionar Torneio(s) categoria PESADO");
+            System.out.println("4 - INICIAR TODOS OS TORNEIOS E SAIR");
+            System.out.println("0 - Cancelar e Sair do Programa");
+            System.out.print("Escolha uma opção: ");
 
-            for (int n = 1; n <= qtdTorneios; n++){
-                int qtdLutadores = lerQuantidadeValida(scanner, categoria, n);
-                List<Lutador> lutadores = cadastrarLutadores(scanner, categoria, qtdLutadores);
-                torneios.add(new EstruturaMataMata(categoria + "  " + n, lutadores));
+            // aqui eu vou ler a opção do usuário como String e depois tentar converter para int, caso o usuário digite algo que não seja um número, vamos capturar essa exceção e informar o erro.
+
+            String opcaoStr = scanner.nextLine().trim(); // Lê a opção do usuário como String e remove espaços em branco no início e no fim
+            int opcao;
+
+            // Após isso resolvi utilizar um try-catch para capturar casos onde o usuário digite algo que não seja um número no menu, e assim evitar que o programa quebre e informe um erro de execução, e em vez disso, vamos informar ao usuário que ele deve digitar apenas números válidos.
+
+            try {
+                opcao = Integer.parseInt(opcaoStr); // Tenta converter a opção para inteiro
+            } catch (NumberFormatException e) { // Captura a exceção caso o usuário digite algo que não seja um número.
+                System.out.println("Erro: Digite apenas o número da opção desejada.");
+                continue; // Volta para o início do laço
             }
-       }
 
-       scanner.close();
-
-       if (torneios.isEmpty()) {
-            System.out.println("Nenhum torneio foi gerado. Encerrando o programa.");
-            return;
-        }
-        
-        for (EstruturaMataMata torneio : torneios) {
-            torneio.iniciarTorneio();
-        }
-    }
-
-    private static int lerQuantidadeValida(Scanner scanner, String categoria, int numeroTorneio) {
-        while (true) {
-            System.out.println("Quantos Lutadores no torneio " + categoria.toUpperCase() + " "
-                + numeroTorneio + "? (Digite 2, 4, 8, 16, etc.): ");
-            int quantidade = scanner.nextInt();
-            scanner.nextLine();
-
-            if (EstruturaMataMata.ehPotenciaDeDois(quantidade)) {
-                return quantidade;
-        }
-
-        System.out.println("Erro: a quantidade deve ser 2, 4, 8, 16...");
-        }
-    }
-
-    // Inserindo o metodo auxiliar para cadastrar os lutadores evitando repetição de código, ele vai receber como parâmetro o Scanner, a categoria e a quantidade de lutadores que o usuário informou.
-    private static List<Lutador> cadastrarLutadores(Scanner scanner, String categoria, int quantidade) {
-        List<Lutador> lutadores = new ArrayList<>();
-        System.out.println("\nCadastro de Lutadores da Categoria " + categoria.toUpperCase() + ":");
-        //Aqui geramos uma lista de lutadores separando seus dados, basicamente, essa linha preparam o terreno e avisam ao sistema: "Vou começar a ler os dados de uma categoria específica e vou guardar todos eles em uma lista para devolver depois.
-
-        // Aqui eu vou colocar um laço de repetição do tipo for para ler os dados de cada lutador, e vou utilizar o método nextLine() para ler o nome, nextInt() para ler a idade e nextDouble() para ler o peso, e vou criar um objeto da classe Lutador com esses dados e adicionar na lista de lutadores e validar os dados.
-        for (int i = 1; i <= quantidade; i++) {
-            System.out.print("Digite o nome do Lutador " + i + ": ");
-            String nome = scanner.nextLine();
-            System.out.print("Digite a idade do Lutador " + i + ": ");
-            int idade = scanner.nextInt();
-            System.out.print("Digite o peso do Lutador " + i + ": ");
-            double peso = scanner.nextDouble();
-            scanner.nextLine(); // Esta parte é para consumir a quebra de linha deixada pelo nextInt() e nextDouble() e evitar problemas na leitura de proximas entradas de texto, ou famoso "limpar o buffer" do Scanner.
-
-            // Criando um objeto temporário da classe Lutador para validar a categoria antes de adicionar na lista de lutadores, e em seguida evitando que o usuário digite um peso que não corresponde a categoria, e se o peso estiver correto, adicionamos o lutador na lista de lutadores.
-            Lutador lutadorTemporario = new Lutador(nome, idade, peso);
-
-            // Inserindo aqui a validação da categoria, ou seja se compete perfeitamente com o peso, evitando que o usuário digite um peso que não corresponde a categoria.
-            if (!lutadorTemporario.getCategoria().equals(categoria)) {
-                System.out.println("Erro: O peso do lutador não corresponde à categoria " + categoria + ". Reinicie o programa.");
-                System.out.println("Por favor, digite os dados novamente com um peso válido para a categoria " + categoria + ".");
-                i--; // retorna a rodada no laço for para o usuário digitar esse lutador de novo.
-                continue; 
+            String categoriaSelecionada = "";
+            // Aqui a gente vai utilizar um switch case para tratar as opções do menu, e dependendo da opção escolhida, vamos definir a categoria selecionada e continuar o fluxo do cadastro.
+            switch (opcao) {
+                case 1:
+                    categoriaSelecionada = "Leve";
+                    break;
+                case 2:
+                    categoriaSelecionada = "Médio";
+                    break;
+                case 3:
+                    categoriaSelecionada = "Pesado";
+                    break;
+                case 4:
+                    noMenu = false; // Sai do laço para rodar os torneios que foram cadastrados.
+                    continue; 
+                case 0:
+                    System.out.println("Programa encerrado pelo usuário.");
+                    scanner.close();
+                    return; // Encerra tudo e sai do sistema
+                default:
+                    System.out.println("Opção inválida! Escolha um número entre 0 e 4.");
+                    continue;
             }
-            // Se passar pelo if acima, significa que o lutador foi cadastrado corretamente, então podemos informar ao usuário que o cadastro foi realizado com sucesso.
-            lutadores.add(lutadorTemporario);
-            System.out.println("Lutador " + nome + " cadastrado com sucesso na categoria! ");
-        }
-        return lutadores;
-    }
-}
 
+            // Já aqui a gente vai perguntar ao usuário quantos torneios ele quer gerar para a categoria selecionada, e vamos validar se o número é positivo, caso contrário, vamos informar o erro e pedir para digitar novamente.
+            int qtdTorneios = 0; // Variavel para armazenar a quantidade de torneios que o usuário deseja gerar para a categoria selecionada.
+            while (true) { // Laço para garantir que o usuário digite um número válido de torneios
+                System.out.print("\nQuantos torneios da categoria " + categoriaSelecionada.toUpperCase() + " deseja gerar? ");
+                try {
+                    qtdTorneios = Integer.parseInt(scanner.nextLine().trim());
+                    if (qtdTorneios >= 0) break; // Valor válido, sai do loop
+                    System.out.println("A quantidade não pode ser negativa.");
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: Digite um número inteiro válido.");
+                }
+            }
+
+
+        }
+
+        scanner.close();
+
+
+        // @Joao, aqui você continua a lógica, precisamos da parte de execução do mata-mata, que vai percorrer a lista de torneios cadastrados anteriormente, acho que se a gente colocar uma condição para verificar se a lista de torneios está vazia, podemos informar ao usuário que não há torneios cadastrados e encerrar o programa. 
+        // Após isso exibir o inicio dos torneios já pro usuário, e depois precisamos pensar nas validações de quantidade de lutadores, e se a quantidade de lutadores for ímpar, vamos informar ao usuário que o último lutador vai passar direto para a próxima fase, e depois vamos exibir os resultados das lutas e o vencedor do torneio.
+        // Acho que pra cada uma das validações nós podemos criar metodos auxiliares como fizemos com o Cadastrarlutadores, mas cê vê aí a melhor forma de organizar o código.
+
+    }
