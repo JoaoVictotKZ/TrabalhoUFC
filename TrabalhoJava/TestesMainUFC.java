@@ -85,8 +85,105 @@ public class TestesMainUFC {
         scanner.close();
 
 
-        // @Joao, aqui você continua a lógica, precisamos da parte de execução do mata-mata, que vai percorrer a lista de torneios cadastrados anteriormente, acho que se a gente colocar uma condição para verificar se a lista de torneios está vazia, podemos informar ao usuário que não há torneios cadastrados e encerrar o programa. 
-        // Após isso exibir o inicio dos torneios já pro usuário, e depois precisamos pensar nas validações de quantidade de lutadores, e se a quantidade de lutadores for ímpar, vamos informar ao usuário que o último lutador vai passar direto para a próxima fase, e depois vamos exibir os resultados das lutas e o vencedor do torneio.
-        // Acho que pra cada uma das validações nós podemos criar metodos auxiliares como fizemos com o Cadastrarlutadores, mas cê vê aí a melhor forma de organizar o código.
+        // Fase de execução do Mata-Mata
+        if (torneios.isEmpty()) {
+            System.out.println("\nNenhum torneio foi gerado. Encerrando o programa.");
+            return;
+        }
+        
+        System.out.println("\n===========================================");
+        System.out.println("     INICIANDO OS COMBATES OFICIAIS!       ");
+        System.out.println("===========================================");
 
+        for (EstruturaMataMata torneio : torneios) {
+            torneio.iniciarTorneio();
+        }
     }
+
+    // Método blindado para ler a quantidade de lutadores
+    private static int lerQuantidadeValida(Scanner scanner, String categoria, int numeroTorneio) {
+        while (true) {
+            System.out.print("Quantos Lutadores no torneio " + categoria.toUpperCase() + " " 
+                + numeroTorneio + "? (Digite 2, 4, 8, 16, etc.): ");
+            
+            try {
+                int quantidade = Integer.parseInt(scanner.nextLine().trim());
+                
+                // Valida se é potência de dois chamando o método estático da classe EstruturaMataMata
+                if (EstruturaMataMata.ehPotenciaDeDois(quantidade)) {
+                    return quantidade;
+                }
+                System.out.println("Erro: a quantidade deve ser potência de dois (2, 4, 8, 16...).");
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: Digite apenas números inteiros.");
+            }
+        }
+    }
+
+    // Método blindado para cadastrar lutadores com todas as validações aplicadas
+    private static List<Lutador> cadastrarLutadores(Scanner scanner, String categoria, int quantidade) {
+        List<Lutador> lutadores = new ArrayList<>();
+        System.out.println("\nCadastro de Lutadores da Categoria " + categoria.toUpperCase() + ":");
+
+        for (int i = 1; i <= quantidade; i++) {
+            System.out.println("\n-- Cadastrando Lutador " + i + " de " + quantidade + " --");
+            
+            // Validação do Nome com somente letras e espaços
+            String nome = "";
+            while (true) {
+                System.out.print("Nome do Lutador: ");
+                nome = scanner.nextLine().trim();
+                if (nome.matches("^[a-zA-ZÀ-ÿ\\s]+$")) {
+                    break; 
+                }
+                System.out.println("Erro: O nome não pode conter números, símbolos ou ficar em branco.");
+            }
+
+            // Validação da Idade com apenas números e limite entre 18 e 45 anos
+            int idade = 0;
+            while (true) {
+                System.out.print("Idade (18 a 45 anos): ");
+                try {
+                    idade = Integer.parseInt(scanner.nextLine().trim());
+                    if (idade >= 18 && idade <= 45) {
+                        break; 
+                    } else {
+                        System.out.println("Erro: A idade informada está fora do limite permitido pela comissão.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: Digite apenas números inteiros sem vírgula ou texto.");
+                }
+            }
+
+            // Validação do Peso aceita vírgula ou ponto e corrige automaticamente
+            double peso = 0.0;
+            while (true) {
+                System.out.print("Peso (Ex: 70.5 ou 70,5): ");
+                String entradaPeso = scanner.nextLine().trim().replace(",", ".");
+                try {
+                    peso = Double.parseDouble(entradaPeso);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: Digite um valor numérico válido para o peso.");
+                }
+            }
+
+            // Instanciação e validação lógica de categoria
+            Lutador lutadorTemporario = new Lutador(nome, idade, peso);
+
+            if (!lutadorTemporario.getCategoria().equals(categoria)) {
+                System.out.println("\n[!] ALERTA: O peso do lutador (" + peso + " kg) o enquadra na categoria " 
+                    + lutadorTemporario.getCategoria().toUpperCase() + ".");
+                System.out.println("Isso não corresponde à categoria deste torneio (" + categoria.toUpperCase() + ").");
+                System.out.println("Por favor, registre os dados novamente com o peso correto.\n");
+                i--; // Retorna a rodada no laço for
+                continue; 
+            }
+
+            // 
+            lutadores.add(lutadorTemporario);
+            System.out.println(">> Lutador " + nome + " cadastrado com sucesso!");
+        }
+        return lutadores;
+    }
+}
