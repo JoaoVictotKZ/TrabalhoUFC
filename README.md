@@ -43,8 +43,8 @@ TrabalhoJava/
 ├── Lutador.java            # Entidade que representa um lutador
 ├── Luta.java               # Combate entre dois lutadores
 ├── EstruturaMataMata.java  # Gerencia as fases e o chaveamento do torneio
-├── TestesMainUFC.java      # Classe principal (main) com menu e cadastro
-└── UFC.java                # Rascunho inicial (todo o conteúdo está comentado)
+├── TestesMainUFC.java      # Rascunho da Classe principal (main) com menu e cadastro, além de outros testes implementados
+└── UFC.java                # Classe Principal (main) com o projeto completo 
 ```
 
 | Classe | Responsabilidade |
@@ -245,7 +245,7 @@ TrabalhoJava/
 ├── Lutador.java            # Entity representing a fighter
 ├── Luta.java               # A bout between two fighters
 ├── EstruturaMataMata.java  # Manages the rounds and bracket of the tournament
-├── TestesMainUFC.java      # Test Main class (entry point) with menu and registration
+├── TestesMainUFC.java      # Draft of the Main class with menu and registration plus other implemented tests
 └── UFC.java                # Main Class (all content is a Alpha Project)
 ```
 
@@ -446,7 +446,7 @@ TrabalhoJava/
 ├── Lutador.java            # Entidad que representa a un luchador
 ├── Luta.java               # Combate entre dos luchadores
 ├── EstruturaMataMata.java  # Gestiona las fases y el cuadro del torneo
-├── TestesMainUFC.java      # Clase de testaje principal (TEST main) con menú y registro
+├── TestesMainUFC.java      # Borrador de la clase principal (main) con menú y registro, además de otras pruebas implementadas
 └── UFC.java                # El alpha del proyecto (todo el contenido vaya testado)
 ```
 
